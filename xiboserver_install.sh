@@ -1,7 +1,8 @@
 #!/bin/bash
+
 ##########################################################################################
 ##         Xibo server installation script for Ubuntu 16.04 LTS by VPARRES              ##
-##               Uses Ondrej PPA to get the ol'n'outdated PHP 5.6                       ##
+##               Uses Ondrej PPA to get the old and outdated PHP 5.6                    ##
 ## Configs were tweaked by myself and are based on Xibo's documentation recommendations ##
 ##########################################################################################
 
