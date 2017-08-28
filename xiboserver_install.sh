@@ -34,7 +34,7 @@ echo "This script will install nginx, MySQL, PHP 5.6"
 echo "and some required modules required to run Xibo first,"
 echo "then it will install Xibo along with tweaked config files"
 echo "-----------------------------------------------------------"
-read -p "Are you sure you want to continue ? (y/N)" -n 1 -r
+read -p "Are you sure you want to continue ? (y/N) " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
 
@@ -44,7 +44,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   apt-get update > /dev/null 2>&1
   errhand "$?"
 
-  printf "Upgrading packages ... "
+  printf "Upgrading packages (This may take a while) ... "
   apt-get upgrade -y > /dev/null 2>&1
   errhand "$?"
 
