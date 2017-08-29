@@ -50,7 +50,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
   # Phase 2 : Adding the new PPA ...
   echo "====== Step 2 : Add required repos ======"
-  printf "Adding ondrej ppa for php 5.6 :\nPrerequisities ... "
+  printf "Adding ondrej ppa for php 5.6 :\n\tPrerequisities ... "
   apt-get install -y python-software-properties > /dev/null 2>&1
   errhand "$?"
   printf "\tImporting GPG key ... "
@@ -119,7 +119,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   systemctl reload nginx
   errhand "$?"
 
-  printf "PHP conf :\nBackup ... "
+  printf "PHP conf :\n\tBackup ... "
   mv /etc/php/5.6/fpm/php.ini /etc/php/5.6/fpm/php.ini.old
   errhand "$?"
   printf "\tDownload and Install ... "
