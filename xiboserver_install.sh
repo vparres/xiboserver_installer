@@ -66,12 +66,14 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
   # Phase 3 : Installing NMP ...
   echo "======  Step 3 : Installing base  ======="
-  printf "Installing nginx ..."
+  printf "Installing nginx ... "
   apt-get install -y nginx-full > /dev/null 2>&1
   errhand "$?"
 
-  printf "Installing mysql (Will ask you to define a root password) ..."
-  apt-get install -y mysql-server
+  printf "Installing mysql ... "
+  echo "mysql-server-5.6 mysql-server/root_password password root" | sudo debconf-set-selections
+  echo "mysql-server-5.6 mysql-server/root_password_again password root" | sudo debconf-set-selections
+  apt-get install -y mysql-server > /dev/null 2>&1
   errhand "$?"
 
   printf "Installing PHP 5.6 and required modules ... "
@@ -130,5 +132,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   echo "==========================================================="
   echo "Server installation is complete, you may now finish Xibo's"
   echo "installation using http://localhost or http://$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')"
+  echo "MySQL root's password is 'root' ... Don't forget to change."
   echo "==========================================================="
 fi
