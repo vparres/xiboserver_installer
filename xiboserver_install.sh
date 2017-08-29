@@ -50,10 +50,16 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
   # Phase 2 : Adding the new PPA ...
   echo "====== Step 2 : Add required repos ======"
-  printf "Adding ondrej ppa for php 5.6 ... "
+  printf "Adding ondrej ppa for php 5.6 :\nPrerequisities ... "
   apt-get install -y python-software-properties > /dev/null 2>&1
-  apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 4F4EA0AAE5267A6C
+  errhand "$?"
+  printf "Importing GPG key ... "
+  apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 4F4EA0AAE5267A6C > /dev/null 2>&1
+  errhand "$?"
+  printf "Adding repository ... "
   add-apt-repository ppa:ondrej/php > /dev/null 2>&1
+  errhand "$?"
+  printf "Refreshing packages list ... "
   apt-get update > /dev/null 2>&1
   errhand "$?"
 
