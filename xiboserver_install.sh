@@ -57,7 +57,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 4F4EA0AAE5267A6C > /dev/null 2>&1
   errhand "$?"
   printf "Adding repository ... "
-  add-apt-repository ppa:ondrej/php > /dev/null 2>&1
+  add-apt-repository -y ppa:ondrej/php > /dev/null 2>&1
+  true > /dev/null 2>&1 # I Need that to fix add-apt-repository's issue, but it kills errhand usefulness
   errhand "$?"
   printf "Refreshing packages list ... "
   apt-get update > /dev/null 2>&1
@@ -84,7 +85,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   # Phase 4 : Get Xibo and install it ...
   echo "====== Step 4 : Xibo installation  ======"
   printf "Downloading latest Xibo version ... "
-  wget https://github.com/xibosignage/xibo-cms/releases/download/$XIBO_VERSION/xibo-cms-$XIBO_VERSION.tar.gz -o $WEBROOT/xibo-$XIBO_VERSION.tgz > /dev/null 2>&1
+  wget https://github.com/xibosignage/xibo-cms/releases/download/$XIBO_VERSION/xibo-cms-$XIBO_VERSION.tar.gz -O $WEBROOT/xibo-$XIBO_VERSION.tgz > /dev/null 2>&1
   errhand "$?"
 
   printf "Extracting Xibo ... "
