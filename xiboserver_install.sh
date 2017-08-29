@@ -71,8 +71,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   errhand "$?"
 
   printf "Installing mysql ... "
-  echo "mysql-server-5.6 mysql-server/root_password password root" | sudo debconf-set-selections > /dev/null 2>&1
-  echo "mysql-server-5.6 mysql-server/root_password_again password root" | sudo debconf-set-selections > /dev/null 2>&1
+  $(echo "mysql-server-5.6 mysql-server/root_password password root" | sudo debconf-set-selections) > /dev/null 2>&1
+  $(echo "mysql-server-5.6 mysql-server/root_password_again password root" | sudo debconf-set-selections) > /dev/null 2>&1
   apt-get install -y mysql-server > /dev/null 2>&1
   errhand "$?"
 
