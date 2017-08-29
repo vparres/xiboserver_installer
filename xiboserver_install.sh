@@ -53,14 +53,14 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   printf "Adding ondrej ppa for php 5.6 :\nPrerequisities ... "
   apt-get install -y python-software-properties > /dev/null 2>&1
   errhand "$?"
-  printf "Importing GPG key ... "
+  printf "\tImporting GPG key ... "
   apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 4F4EA0AAE5267A6C > /dev/null 2>&1
   errhand "$?"
-  printf "Adding repository ... "
+  printf "\tAdding repository ... "
   add-apt-repository -y ppa:ondrej/php > /dev/null 2>&1
   true > /dev/null 2>&1 # I Need that to fix add-apt-repository's issue, but it kills errhand usefulness
   errhand "$?"
-  printf "Refreshing packages list ... "
+  printf "\tRefreshing packages list ... "
   apt-get update > /dev/null 2>&1
   errhand "$?"
 
@@ -96,36 +96,36 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 
   # Phase 5 : Conf them all ! ...
   echo "======  Step 5 : Retrieving confs  ======"
-  printf "nginx conf :\nBackup ... "
+  printf "nginx conf :\n\tBackup ... "
   mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.old # Make a backup first, it's mandatory
   errhand "$?"
-  printf "Download and install ... "
+  printf "\tDownload and install ... "
   wget -q https://github.com/vparres/xiboserver_installer/raw/master/confs/nginx.conf -O /etc/nginx/nginx.conf # Get latest conf from repo
   errhand "$?"
 
-  printf "nginx vhost conf :\nDownload ... "
+  printf "nginx vhost conf :\n\tDownload ... "
   wget -q https://github.com/vparres/xiboserver_installer/raw/master/confs/xibo_vhost_conf -O /etc/nginx/sites-available/xibo_vhost_conf
   errhand "$?"
-  printf "Deactivating all servers ... "
+  printf "\tDeactivating all servers ... "
   rm /etc/nginx/sites-enabled/* # Deactivate any another servers, yeah i know, this sucks, but better safe than sorry ...
   errhand "$?"
-  printf "Enabling Xibo's server ..."
+  printf "\tEnabling Xibo's server ..."
   ln -s /etc/nginx/sites-available/xibo_vhost_conf /etc/nginx/sites-enabled/xibo_vhost_conf # Then enable Xibo's conf.
   errhand "$?"
-  printf "Checking if nginx config is OK ... "
-  nginx -t
+  printf "\tChecking if nginx config is OK ... "
+  nginx -t > /dev/null 2>&1
   errhand "$?"
-  printf "Reloading nginx ... "
+  printf "\tReloading nginx ... "
   systemctl reload nginx
   errhand "$?"
 
   printf "PHP conf :\nBackup ... "
   mv /etc/php/5.6/fpm/php.ini /etc/php/5.6/fpm/php.ini.old
   errhand "$?"
-  printf "Download and Install ... "
+  printf "\tDownload and Install ... "
   wget -q https://github.com/vparres/xiboserver_installer/raw/master/confs/xibo_php.ini -O /etc/php/5.6/fpm/php.ini
   errhand "$?"
-  printf "Reloading PHP-FPM service ... "
+  printf "\tReloading PHP-FPM service ... "
   systemctl reload php5.6-fpm
   errhand "$?"
 
