@@ -71,8 +71,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   errhand "$?"
 
   printf "Installing mysql ... "
-  echo "mysql-server-5.6 mysql-server/root_password password root" | sudo debconf-set-selections
-  echo "mysql-server-5.6 mysql-server/root_password_again password root" | sudo debconf-set-selections
+  echo "mysql-server-5.6 mysql-server/root_password password root" | sudo debconf-set-selections > /dev/null 2>&1
+  echo "mysql-server-5.6 mysql-server/root_password_again password root" | sudo debconf-set-selections > /dev/null 2>&1
   apt-get install -y mysql-server > /dev/null 2>&1
   errhand "$?"
 
@@ -100,11 +100,11 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.old # Make a backup first, it's mandatory
   errhand "$?"
   printf "Download and install ... "
-  wget https://github.com/vparres/xiboserver_installer/raw/master/conf/nginx.conf -O /etc/nginx/nginx.conf # Get latest conf from repo
+  wget https://github.com/vparres/xiboserver_installer/raw/master/confs/nginx.conf -O /etc/nginx/nginx.conf # Get latest conf from repo
   errhand "$?"
 
   printf "nginx vhost conf :\nDownload ... "
-  wget https://github.com/vparres/xiboserver_installer/raw/master/conf/xibo_vhost_conf -O /etc/nginx/sites-available/xibo_vhost_conf
+  wget https://github.com/vparres/xiboserver_installer/raw/master/confs/xibo_vhost_conf -O /etc/nginx/sites-available/xibo_vhost_conf
   errhand "$?"
   printf "Deactivating all servers ... "
   rm /etc/nginx/sites-enabled/* # Deactivate any another servers, yeah i know, this sucks, but better safe than sorry ...
@@ -123,7 +123,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   mv /etc/php/5.6/fpm/php.ini /etc/php/5.6/fpm/php.ini.old
   errhand "$?"
   printf "Download and Install ... "
-  wget https://github.com/vparres/xiboserver_installer/raw/master/conf/xibo_php.ini -O /etc/php/5.6/fpm/php.ini
+  wget https://github.com/vparres/xiboserver_installer/raw/master/confs/xibo_php.ini -O /etc/php/5.6/fpm/php.ini
   errhand "$?"
   printf "Reloading PHP-FPM service ... "
   systemctl reload php5.6-fpm
