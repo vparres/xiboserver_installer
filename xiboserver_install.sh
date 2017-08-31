@@ -94,6 +94,12 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   tar xvf /tmp/xibo-$XIBO_VERSION.tgz -C $WEBROOT > /dev/null 2>&1
   errhand "$?"
 
+  printf "Fixing RootFS ..."
+  mv /var/www/xibo-cms-$XIBO_VERSION/* /var/www
+  rmdir /var/www/xibo-cms-$XIBO_VERSION
+  chown -R www-data:www-data /var/www
+  errhand "$?"
+
   # Phase 5 : Conf them all ! ...
   echo "======  Step 5 : Retrieving confs  ======"
   printf "nginx conf :\n\tBackup ... "
