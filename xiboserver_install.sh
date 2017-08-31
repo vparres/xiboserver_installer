@@ -87,11 +87,11 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   # Phase 4 : Get Xibo and install it ...
   echo "====== Step 4 : Xibo installation  ======"
   printf "Downloading latest Xibo version ... "
-  wget -q https://github.com/xibosignage/xibo-cms/releases/download/$XIBO_VERSION/xibo-cms-$XIBO_VERSION.tar.gz -O $WEBROOT/xibo-$XIBO_VERSION.tgz
+  wget -q https://github.com/xibosignage/xibo-cms/releases/download/$XIBO_VERSION/xibo-cms-$XIBO_VERSION.tar.gz -O /tmp/xibo-$XIBO_VERSION.tgz
   errhand "$?"
 
   printf "Extracting Xibo ... "
-  tar xvf $WEBROOT/xibo-$XIBO_VERSION.tgz > /dev/null 2>&1
+  tar xvf /tmp/xibo-$XIBO_VERSION.tgz -C $WEBROOT > /dev/null 2>&1
   errhand "$?"
 
   # Phase 5 : Conf them all ! ...
